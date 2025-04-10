@@ -1,0 +1,518 @@
+mysql> USE DATA1;
+Database changed
+mysql> CREATE TABLE CUSTOMERS(
+    -> ID INT PRIMARY KEY NOT NULL,
+    -> NAME VARCHAR(30) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> ADDRESS VARCHAR(60),
+    -> SALARY FLOAT
+    -> 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 7
+mysql> CREATE TABLE CUSTOMERS(
+    -> ID INT PRIMARY KEY NOT NULL,
+    -> NAME VARCHAR(30) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> ADDRESS VARCHAR(60),
+    -> SALARY FLOAT);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO CUSTOMERS VALUES
+    -> (1,'Ravi',24,Hyd,10000),
+    -> (2,'Abhi',22,Hyd,20000),
+    -> (3,'Ashok',22,Chennai,5000),
+    -> \c
+mysql> INSERT INTO CUSTOMERS VALUES
+    -> (1,'Ravi',24,'Hyderabad',10000),
+    -> (2,'Abhi',22,'Hyderabad',10000),
+    -> (3,'Ashok',22,'Chennai',7000),
+    -> (4,'Karthik',20,'Bangalore',4000),
+    -> (5,'Seetha',20,'Kolkata',9000),
+    -> (6,'Ramu',26,'DELHI',2500),
+    -> (7,'Ravi',23,'CHOUTUPPAL',3000);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT 10+20;
++-------+
+| 10+20 |
++-------+
+|    30 |
++-------+
+1 row in set (0.01 sec)
+
+mysql> SELECT 10*10;
++-------+
+| 10*10 |
++-------+
+|   100 |
++-------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY >= 4000;
++----+---------+-----+-----------+--------+
+| ID | NAME    | AGE | ADDRESS   | SALARY |
++----+---------+-----+-----------+--------+
+|  1 | Ravi    |  24 | Hyderabad |  10000 |
+|  2 | Abhi    |  22 | Hyderabad |  10000 |
+|  3 | Ashok   |  22 | Chennai   |   7000 |
+|  4 | Karthik |  20 | Bangalore |   4000 |
+|  5 | Seetha  |  20 | Kolkata   |   9000 |
++----+---------+-----+-----------+--------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY = 10000;
++----+------+-----+-----------+--------+
+| ID | NAME | AGE | ADDRESS   | SALARY |
++----+------+-----+-----------+--------+
+|  1 | Ravi |  24 | Hyderabad |  10000 |
+|  2 | Abhi |  22 | Hyderabad |  10000 |
++----+------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY != 10000;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY <> 2500;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE AGE>20 AND SALARY >=5000;
++----+-------+-----+-----------+--------+
+| ID | NAME  | AGE | ADDRESS   | SALARY |
++----+-------+-----+-----------+--------+
+|  1 | Ravi  |  24 | Hyderabad |  10000 |
+|  2 | Abhi  |  22 | Hyderabad |  10000 |
+|  3 | Ashok |  22 | Chennai   |   7000 |
++----+-------+-----+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE AGE>=20 OR SALARY >=5000;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE AGE IS NOT NULL;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS NAME LIKE 'A%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LIKE 'A%'' at line 1
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE 'A%';
++----+-------+-----+-----------+--------+
+| ID | NAME  | AGE | ADDRESS   | SALARY |
++----+-------+-----+-----------+--------+
+|  2 | Abhi  |  22 | Hyderabad |  10000 |
+|  3 | Ashok |  22 | Chennai   |   7000 |
++----+-------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE AGE IN (22, 24);
++----+-------+-----+-----------+--------+
+| ID | NAME  | AGE | ADDRESS   | SALARY |
++----+-------+-----+-----------+--------+
+|  1 | Ravi  |  24 | Hyderabad |  10000 |
+|  2 | Abhi  |  22 | Hyderabad |  10000 |
+|  3 | Ashok |  22 | Chennai   |   7000 |
++----+-------+-----+-----------+--------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE AGE BETWEEN 24 AND 26;
++----+------+-----+-----------+--------+
+| ID | NAME | AGE | ADDRESS   | SALARY |
++----+------+-----+-----------+--------+
+|  1 | Ravi |  24 | Hyderabad |  10000 |
+|  6 | Ramu |  26 | DELHI     |   2500 |
++----+------+-----+-----------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT AGE FROM CUSTOMERS
+    -> WHERE EXISTS (SELECT AGE FROM CUSTOMERS WHERE SALARY > 5000);
++-----+
+| AGE |
++-----+
+|  24 |
+|  22 |
+|  22 |
+|  20 |
+|  20 |
+|  26 |
+|  23 |
++-----+
+7 rows in set (0.01 sec)
+
+mysql> SELECT AGE FROM CUSTOMERS
+    -> WHERE EXISTS (SELECT AGE FROM CUSTOMERS WHERE SALARY > 11000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS
+    -> \C
+ERROR:
+Usage: \C charset_name | charset charset_name
+    -> \c
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |   2500 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS
+    -> WHERE AGE>ALL (SELECT AGE FROM CUSTOMERS WHERE SALARY > 4000);
++----+------+-----+---------+--------+
+| ID | NAME | AGE | ADDRESS | SALARY |
++----+------+-----+---------+--------+
+|  6 | Ramu |  26 | DELHI   |   2500 |
++----+------+-----+---------+--------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS
+    -> WHERE AGE>ANY (SELECT AGE FROM CUSTOMERS WHERE SALARY > 4000);
++----+-------+-----+------------+--------+
+| ID | NAME  | AGE | ADDRESS    | SALARY |
++----+-------+-----+------------+--------+
+|  1 | Ravi  |  24 | Hyderabad  |  10000 |
+|  2 | Abhi  |  22 | Hyderabad  |  10000 |
+|  3 | Ashok |  22 | Chennai    |   7000 |
+|  6 | Ramu  |  26 | DELHI      |   2500 |
+|  7 | Ravi  |  23 | CHOUTUPPAL |   3000 |
++----+-------+-----+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT (10+10) AS ADDITION;
++----------+
+| ADDITION |
++----------+
+|       20 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT (10*10) AS MULTIPLICATION;
++----------------+
+| MULTIPLICATION |
++----------------+
+|            100 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COUNT(*) AS 'RECORDS' FROM CUSTOMERS;
++---------+
+| RECORDS |
++---------+
+|       7 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COUNT(*) FROM CUSTOMERS;
++----------+
+| COUNT(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_TIMESTAMP();
++---------------------+
+| CURRENT_TIMESTAMP() |
++---------------------+
+| 2025-04-10 20:24:28 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2025-04-10 20:24:38 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TRANSACTION_TIMESTAMP();
+ERROR 1305 (42000): FUNCTION data1.TRANSACTION_TIMESTAMP does not exist
+mysql> CREATE DATABASE TestDB;
+ERROR 1007 (HY000): Can't create database 'testdb'; database exists
+mysql> CREATE DATABASE TestingDB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DROP DATABASE testdb;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from testdb;
+ERROR 1146 (42S02): Table 'data1.testdb' doesn't exist
+mysql> CREATE TABLE SALARY AS SELECT ID, SALARY FROM CUSTOMERS;
+Query OK, 7 rows affected (0.04 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT
+    -> \c
+mysql> SELECT * FROM SALARY;
++----+--------+
+| ID | SALARY |
++----+--------+
+|  1 |  10000 |
+|  2 |  10000 |
+|  3 |   7000 |
+|  4 |   4000 |
+|  5 |   9000 |
+|  6 |   2500 |
+|  7 |   3000 |
++----+--------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE AS SALARY SELECT ID, SALARY FROM CUSTOMERS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS SALARY SELECT ID, SALARY FROM CUSTOMERS' at line 1
+mysql> CREATE TABLE AS 'SALARY' SELECT ID, SALARY FROM CUSTOMERS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS 'SALARY' SELECT ID, SALARY FROM CUSTOMERS' at line 1
+mysql> CREATE TABLE AS SALARY SELECT ID, SALARY, NAME FROM CUSTOMERS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS SALARY SELECT ID, SALARY, NAME FROM CUSTOMERS' at line 1
+mysql> CREATE TABLE SALARY AS SELECT ID, SALARY, NAME FROM CUSTOMERS;
+ERROR 1050 (42S01): Table 'SALARY' already exists
+mysql> CREATE TABLE SALARYS AS SELECT ID, SALARY, NAME FROM CUSTOMERS;
+Query OK, 7 rows affected (0.04 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM SALARYS;
++----+--------+---------+
+| ID | SALARY | NAME    |
++----+--------+---------+
+|  1 |  10000 | Ravi    |
+|  2 |  10000 | Abhi    |
+|  3 |   7000 | Ashok   |
+|  4 |   4000 | Karthik |
+|  5 |   9000 | Seetha  |
+|  6 |   2500 | Ramu    |
+|  7 |   3000 | Ravi    |
++----+--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> DESC CUSTOMERS;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ID      | int         | NO   | PRI | NULL    |       |
+| NAME    | varchar(30) | NO   |     | NULL    |       |
+| AGE     | int         | NO   |     | NULL    |       |
+| ADDRESS | varchar(60) | YES  |     | NULL    |       |
+| SALARY  | float       | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| data1              |
+| information_schema |
+| mydata             |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testingdb          |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| salary          |
+| salarys         |
++-----------------+
+3 rows in set (0.02 sec)
+
+mysql> DROP TABLE SALARY;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| salarys         |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> DROP TABLE SALARYS;;
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR:
+No query specified
+
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> DESC SALARY;
+ERROR 1146 (42S02): Table 'data1.salary' doesn't exist
+mysql> SELECT ID, NAME, SALARY FROM CUSTOMERS;
++----+---------+--------+
+| ID | NAME    | SALARY |
++----+---------+--------+
+|  1 | Ravi    |  10000 |
+|  2 | Abhi    |  10000 |
+|  3 | Ashok   |   7000 |
+|  4 | Karthik |   4000 |
+|  5 | Seetha  |   9000 |
+|  6 | Ramu    |   2500 |
+|  7 | Ravi    |   3000 |
++----+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE CUSTOMERS SET SALARY = 15000 WHERE ID = 6;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMERS;;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> INSERT INTO CUSTOMERS(ID, NAME, AGE, ADDRESS, SALARY)
+    -> VALUES (8, 'Poonam', 30, 'Goa', 250);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM CUSTOMERS;;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  8 | Poonam  |  30 | Goa        |    250 |
++----+---------+-----+------------+--------+
+8 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> DELETE FROM CUSTOMERS WHERE ID = 8;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM CUSTOMERS;;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql>
