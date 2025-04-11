@@ -1,0 +1,413 @@
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| data1              |
+| information_schema |
+| mydata             |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testingdb          |
++--------------------+
+8 rows in set (0.06 sec)
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use data1;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT FROM CUSTOMERS WHERE NAME LIKE '%A';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM CUSTOMERS WHERE NAME LIKE '%A'' at line 1
+mysql> SELECT FROM CUSTOMERS WHERE NAME LIKE 'A%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM CUSTOMERS WHERE NAME LIKE 'A%'' at line 1
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE 'A%';
++----+-------+-----+-----------+--------+
+| ID | NAME  | AGE | ADDRESS   | SALARY |
++----+-------+-----+-----------+--------+
+|  2 | Abhi  |  22 | Hyderabad |  10000 |
+|  3 | Ashok |  22 | Chennai   |   7000 |
++----+-------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE '%A%';
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE '_A%';
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE '___TH%';
++----+---------+-----+-----------+--------+
+| ID | NAME    | AGE | ADDRESS   | SALARY |
++----+---------+-----+-----------+--------+
+|  4 | Karthik |  20 | Bangalore |   4000 |
+|  5 | Seetha  |  20 | Kolkata   |   9000 |
++----+---------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE '%A';
++----+--------+-----+---------+--------+
+| ID | NAME   | AGE | ADDRESS | SALARY |
++----+--------+-----+---------+--------+
+|  5 | Seetha |  20 | Kolkata |   9000 |
++----+--------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE NAME LIKE '%A%K';
++----+---------+-----+-----------+--------+
+| ID | NAME    | AGE | ADDRESS   | SALARY |
++----+---------+-----+-----------+--------+
+|  3 | Ashok   |  22 | Chennai   |   7000 |
+|  4 | Karthik |  20 | Bangalore |   4000 |
++----+---------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY LIKE '200%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS WHERE SALARY LIKE '1000%';
++----+------+-----+-----------+--------+
+| ID | NAME | AGE | ADDRESS   | SALARY |
++----+------+-----+-----------+--------+
+|  1 | Ravi |  24 | Hyderabad |  10000 |
+|  2 | Abhi |  22 | Hyderabad |  10000 |
++----+------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS LIMIT 3;
++----+-------+-----+-----------+--------+
+| ID | NAME  | AGE | ADDRESS   | SALARY |
++----+-------+-----+-----------+--------+
+|  1 | Ravi  |  24 | Hyderabad |  10000 |
+|  2 | Abhi  |  22 | Hyderabad |  10000 |
+|  3 | Ashok |  22 | Chennai   |   7000 |
++----+-------+-----+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY NAME, SALARY;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY NAME, SALARY DESC;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY NAME DESC;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY SALARY DESC;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT NAME, SUM(SALARY) FROM CUSTOMERS GROUP BY NAME;
++---------+-------------+
+| NAME    | SUM(SALARY) |
++---------+-------------+
+| Ravi    |       13000 |
+| Abhi    |       10000 |
+| Ashok   |        7000 |
+| Karthik |        4000 |
+| Seetha  |        9000 |
+| Ramu    |       15000 |
++---------+-------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT NAME, AGE, SUM(SALARY) FROM CUSTOMERS GROUP BY NAME;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'data1.CUSTOMERS.AGE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT AGE, SUM(SALARY) FROM CUSTOMERS GROUP BY NAME;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'data1.CUSTOMERS.AGE' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM CUSTOMERS ORDER BY SALARY;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT SALARY FROM CUSTOMERS ORDER BY SALARY;
++--------+
+| SALARY |
++--------+
+|   3000 |
+|   4000 |
+|   7000 |
+|   9000 |
+|  10000 |
+|  10000 |
+|  15000 |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT SALARY FROM CUSTOMERS ORDER BY SALARY;
++--------+
+| SALARY |
++--------+
+|   3000 |
+|   4000 |
+|   7000 |
+|   9000 |
+|  10000 |
+|  15000 |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY NAME, SALARY;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY NAME DESC;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS ORDER BY (CASE ADDRESS
+    -> WHEN 'DELHI' THEN 1
+    -> WHEN 'BANGALORE' THEN 2
+    -> WHEN  'KOLKATA' THEN 3
+    -> WHEN  'CHENNAI' THEN 4
+    -> WHEN  'CHOUTUPPAL' THEN 5
+    -> ELSE 100 END) ASC, ADDRESS DESC;
++----+---------+-----+------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY |
++----+---------+-----+------------+--------+
+|  6 | Ramu    |  26 | DELHI      |  15000 |
+|  4 | Karthik |  20 | Bangalore  |   4000 |
+|  5 | Seetha  |  20 | Kolkata    |   9000 |
+|  3 | Ashok   |  22 | Chennai    |   7000 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |   3000 |
+|  1 | Ravi    |  24 | Hyderabad  |  10000 |
+|  2 | Abhi    |  22 | Hyderabad  |  10000 |
++----+---------+-----+------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> CREATE TABLE PRACTICE(
+    -> ID INT NOT NULL PRIMARY KEY
+    -> NAME VARCHAR(30) NOT NULL,
+    -> \C
+ERROR:
+Usage: \C charset_name | charset charset_name
+    -> \c
+mysql> CREATE TABLE PRACTICE(
+    -> ID INT NOT NULL PRIMARY KEY,
+    -> NAME VARCHAR(30) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> ADDRESS CHAR(30),
+    -> SALARY DECIMAL(18,2),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 7
+mysql> CREATE TABLE PRACTICE(
+    -> ID INT NOT NULL PRIMARY KEY,
+    -> NAME VARCHAR(30) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> ADDRESS CHAR(30),
+    -> SALARY DECIMAL(18,2));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> ALTER TABLE CUSTOMERS MODIFY SALARY DECIMAL(18,2) NOT NULL;
+Query OK, 7 rows affected (0.08 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> DESC PARCTICE;
+ERROR 1146 (42S02): Table 'data1.parctice' doesn't exist
+mysql> DESC TABLE PRACTICE;
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | PRACTICE | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> SELECT * FROM PARCTICE;
+ERROR 1146 (42S02): Table 'data1.parctice' doesn't exist
+mysql> SELECT * FROM TABLE PARCTICE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE PARCTICE' at line 1
+mysql> SELECT * FROM PRACTICE;
+Empty set (0.00 sec)
+
+mysql> DESC PRACTICE;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> CREATE TABLE PRACTICE1(
+    -> ID INT NOT NULL PRIMARY KEY,
+    -> NAME VARCHAR(30) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> ADDRESS CHAR(30),
+    -> SALARY DECIMAL(18,2) DEFAULT 5000.00);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | 5000.00 |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE PRACTICE1 MODIFY SALARY DECIMAL(18,2) DEFAULT 5000.00;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | 5000.00 |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE PRACTICE1 ALTER COLUMN SALARY DROP DEFAULT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
