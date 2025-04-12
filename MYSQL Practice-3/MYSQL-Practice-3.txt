@@ -1,0 +1,557 @@
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| data1              |
+| information_schema |
+| mydata             |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testingdb          |
++--------------------+
+8 rows in set (0.01 sec)
+
+mysql> use data1;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| practice        |
+| practice1       |
++-----------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from practice1;
+Empty set (0.00 sec)
+
+mysql> desc practice1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table practice1 modify age int not null unique;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc practice1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   | UNI | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE PRACTICE ADD CONSTRAINT MYUNIQUECONSTRAINT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> ALTER TABLE PRACTICE ADD CONSTRAINT MYUNIQUECONSTRAINT UNIQUE(AGE, SALARY);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc practice1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   | UNI | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRACTICE1;
+Empty set (0.00 sec)
+
+mysql> ALTER TABLE PRACTICE DROP CONSTRAINT MYUNIQUECONSTRAINT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE PRACTICE ADD PRIMARY KEY (AGE);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> ALTER TABLE PRACTICE ADD PRIMARY KEY (SALARY);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> CREATE TABLE ORDERS (
+    ->        ID          INT        NOT NULL,
+    ->        DATE        DATETIME,
+    ->        CUSTOMER_ID INT references CUSTOMERS(ID),
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->        AMOUNT     double,
+    ->        PRIMARY KEY (ID)
+    -> \C
+ERROR:
+Usage: \C charset_name | charset charset_name
+    -> \c
+mysql>  CREATE TABLE ORDERS (
+    ->     ->        ID          INT        NOT NULL,
+    ->     ->        DATE        DATETIME,
+    -> \c
+mysql> CREATE TBALE ORDERS(
+    -> ID INT NOT NULL,
+    -> DATE DATETIME,
+    -> CUSTOMER_ID INT REFERENCES CUSTOMERS(ID),
+    -> AMOUNT DOUBLE,
+    -> PRIMARY KEY(ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TBALE ORDERS(
+ID INT NOT NULL,
+DATE DATETIME,
+CUSTOMER_ID INT REFERENCES CUSTOME' at line 1
+mysql> SELECT * FROM PRACTICE1;
+Empty set (0.00 sec)
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   | UNI | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE INDEX INDEX_NAME
+    -> ON TABLE_NAME ()
+    -> \c
+mysql> CREATE INDEX IDX_AGE ON PRACTICE1 (AGE);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW INDEX FROM PRACTICE1;
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table     | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| practice1 |          0 | PRIMARY  |            1 | ID          | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| practice1 |          0 | age      |            1 | age         | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| practice1 |          1 | IDX_AGE  |            1 | age         | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.02 sec)
+
+mysql> SHOW KEYS FROM PRACTICE1;
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table     | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| practice1 |          0 | PRIMARY  |            1 | ID          | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| practice1 |          0 | age      |            1 | age         | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| practice1 |          1 | IDX_AGE  |            1 | age         | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   | UNI | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE PRACTICE1 DROP INDEX IDX_AGE;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE PRACTICE1 DROP PRIMARY KEY (AGE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(AGE)' at line 1
+mysql> ALTER TABLE PRACTICE1 DROP PRIMARY KEY;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC PRACTICE1;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   |     | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| age     | int           | NO   | PRI | NULL    |       |
+| ADDRESS | char(30)      | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE PRACTICE1 DROP PRIMARY KEY;
+ERROR 1091 (42000): Can't DROP 'PRIMARY'; check that column/key exists
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| practice        |
+| practice1       |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC CUSTOMERS;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| ID      | int           | NO   | PRI | NULL    |       |
+| NAME    | varchar(30)   | NO   |     | NULL    |       |
+| AGE     | int           | NO   |     | NULL    |       |
+| ADDRESS | varchar(60)   | YES  |     | NULL    |       |
+| SALARY  | decimal(18,2) | NO   |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+----------+
+| ID | NAME    | AGE | ADDRESS    | SALARY   |
++----+---------+-----+------------+----------+
+|  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+|  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+|  3 | Ashok   |  22 | Chennai    |  7000.00 |
+|  4 | Karthik |  20 | Bangalore  |  4000.00 |
+|  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+|  6 | Ramu    |  26 | DELHI      | 15000.00 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
++----+---------+-----+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRACTICE;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE CUSTOMERS1(
+    -> OID INT NOT NULL PRIMARY KEY,
+    -> DATE DATETIME,
+    -> CUSTOMER_ID NOT NULL,
+    -> AMOUNT FLOAT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL,
+AMOUNT FLOAT)' at line 4
+mysql> CREATE TABLE CUSTOMERS1 (
+    ->     OID INT NOT NULL PRIMARY KEY,
+    ->     DATE DATETIME,
+    ->     CUSTOMER_ID INT NOT NULL,  -- Added data type for CUSTOMER_ID
+    ->     AMOUNT FLOAT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC CUSTOMERS1;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| OID         | int      | NO   | PRI | NULL    |       |
+| DATE        | datetime | YES  |     | NULL    |       |
+| CUSTOMER_ID | int      | NO   |     | NULL    |       |
+| AMOUNT      | float    | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO CUSTOMERS1 VALUES
+    -> (102, 2009-10-08 00:00:00, 3, 3000),
+    -> (100, 2009-10-08 00:00:00, 3, 1500),
+    -> (101, 2009-11-20 00:00:00, 2, 1560),
+    -> (103, 2008-05-20 00:00:00, 4, 2060);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '00:00:00, 3, 3000),
+(100, 2009-10-08 00:00:00, 3, 1500),
+(101, 2009-11-20 00:00:' at line 2
+mysql> INSERT INTO CUSTOMERS1 VALUES
+    ->     (102, '2009-10-08 00:00:00', 3, 3000),
+    ->     (100, '2009-10-08 00:00:00', 3, 1500),
+    ->     (101, '2009-11-20 00:00:00', 2, 1560),
+    ->     (103, '2008-05-20 00:00:00', 4, 2060);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMERS1;
++-----+---------------------+-------------+--------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+----------+
+| ID | NAME    | AGE | ADDRESS    | SALARY   |
++----+---------+-----+------------+----------+
+|  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+|  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+|  3 | Ashok   |  22 | Chennai    |  7000.00 |
+|  4 | Karthik |  20 | Bangalore  |  4000.00 |
+|  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+|  6 | Ramu    |  26 | DELHI      | 15000.00 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
++----+---------+-----+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT ID, NAME, AMOUNT, DATE
+    -> FROM CUSTOMERS
+    -> INNER JOIN ORDERS
+    -> ON CUSTOMERS.ID = ORDERS.CUSTOMER_ID;
+ERROR 1146 (42S02): Table 'data1.orders' doesn't exist
+mysql> SELECT c.ID, c.NAME, c1.DATE, c1.AMOUNT
+    -> FROM CUSTOMERS c
+    -> INNER JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID;
++----+---------+---------------------+--------+
+| ID | NAME    | DATE                | AMOUNT |
++----+---------+---------------------+--------+
+|  3 | Ashok   | 2009-10-08 00:00:00 |   1500 |
+|  2 | Abhi    | 2009-11-20 00:00:00 |   1560 |
+|  3 | Ashok   | 2009-10-08 00:00:00 |   3000 |
+|  4 | Karthik | 2008-05-20 00:00:00 |   2060 |
++----+---------+---------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE FROM CUSTOMERS
+    -> LEFT JOIN CUSTOMERS1 c1 ON c.ID = Cc1.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'c.ID' in 'field list'
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE FROM CUSTOMERS
+    -> LEFT JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID;
+ERROR 1054 (42S22): Unknown column 'c.ID' in 'field list'
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE FROM CUSTOMERS c
+    -> LEFT JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID;
++----+---------+--------+---------------------+
+| ID | NAME    | AMOUNT | DATE                |
++----+---------+--------+---------------------+
+|  1 | Ravi    |   NULL | NULL                |
+|  2 | Abhi    |   1560 | 2009-11-20 00:00:00 |
+|  3 | Ashok   |   3000 | 2009-10-08 00:00:00 |
+|  3 | Ashok   |   1500 | 2009-10-08 00:00:00 |
+|  4 | Karthik |   2060 | 2008-05-20 00:00:00 |
+|  5 | Seetha  |   NULL | NULL                |
+|  6 | Ramu    |   NULL | NULL                |
+|  7 | Ravi    |   NULL | NULL                |
++----+---------+--------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE FROM CUSTOMERS c
+    -> RIGHT JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID;
++------+---------+--------+---------------------+
+| ID   | NAME    | AMOUNT | DATE                |
++------+---------+--------+---------------------+
+|    3 | Ashok   |   1500 | 2009-10-08 00:00:00 |
+|    2 | Abhi    |   1560 | 2009-11-20 00:00:00 |
+|    3 | Ashok   |   3000 | 2009-10-08 00:00:00 |
+|    4 | Karthik |   2060 | 2008-05-20 00:00:00 |
++------+---------+--------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS LEFT JOIN CUSTOMERS1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT * FROM CUSTOMERS LEFT JOIN CUSTOMERS1 ON CUSTOMERS.ID=CUSTOMERS1.ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS1.ID' in 'on clause'
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| customers1      |
+| practice        |
+| practice1       |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+---------+-----+------------+----------+
+| ID | NAME    | AGE | ADDRESS    | SALARY   |
++----+---------+-----+------------+----------+
+|  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+|  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+|  3 | Ashok   |  22 | Chennai    |  7000.00 |
+|  4 | Karthik |  20 | Bangalore  |  4000.00 |
+|  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+|  6 | Ramu    |  26 | DELHI      | 15000.00 |
+|  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
++----+---------+-----+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1;
++-----+---------------------+-------------+--------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS LEFT JOIN CUSTOMERS1 ON CUSTOMERS.ID=CUSTOMERS1.OID;
++----+---------+-----+------------+----------+------+------+-------------+--------+
+| ID | NAME    | AGE | ADDRESS    | SALARY   | OID  | DATE | CUSTOMER_ID | AMOUNT |
++----+---------+-----+------------+----------+------+------+-------------+--------+
+|  1 | Ravi    |  24 | Hyderabad  | 10000.00 | NULL | NULL |        NULL |   NULL |
+|  2 | Abhi    |  22 | Hyderabad  | 10000.00 | NULL | NULL |        NULL |   NULL |
+|  3 | Ashok   |  22 | Chennai    |  7000.00 | NULL | NULL |        NULL |   NULL |
+|  4 | Karthik |  20 | Bangalore  |  4000.00 | NULL | NULL |        NULL |   NULL |
+|  5 | Seetha  |  20 | Kolkata    |  9000.00 | NULL | NULL |        NULL |   NULL |
+|  6 | Ramu    |  26 | DELHI      | 15000.00 | NULL | NULL |        NULL |   NULL |
+|  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 | NULL | NULL |        NULL |   NULL |
++----+---------+-----+------------+----------+------+------+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1 LEFT JOIN CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID;
++-----+---------------------+-------------+--------+------+------+------+---------+--------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT | ID   | NAME | AGE  | ADDRESS | SALARY |
++-----+---------------------+-------------+--------+------+------+------+---------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 | NULL | NULL | NULL | NULL    |   NULL |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 | NULL | NULL | NULL | NULL    |   NULL |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 | NULL | NULL | NULL | NULL    |   NULL |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 | NULL | NULL | NULL | NULL    |   NULL |
++-----+---------------------+-------------+--------+------+------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1 LEFT JOIN CUSTOMERS ON CUSTOMERS.OID=CUSTOMERS1.ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.OID' in 'on clause'
+mysql> SELECT * FROM CUSTOMERS1 RIGHT CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID' at line 1
+mysql> SELECT * FROM CUSTOMERS1 RIGHT JOIN CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID;
++------+------+-------------+--------+----+---------+-----+------------+----------+
+| OID  | DATE | CUSTOMER_ID | AMOUNT | ID | NAME    | AGE | ADDRESS    | SALARY   |
++------+------+-------------+--------+----+---------+-----+------------+----------+
+| NULL | NULL |        NULL |   NULL |  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+| NULL | NULL |        NULL |   NULL |  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+| NULL | NULL |        NULL |   NULL |  3 | Ashok   |  22 | Chennai    |  7000.00 |
+| NULL | NULL |        NULL |   NULL |  4 | Karthik |  20 | Bangalore  |  4000.00 |
+| NULL | NULL |        NULL |   NULL |  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+| NULL | NULL |        NULL |   NULL |  6 | Ramu    |  26 | DELHI      | 15000.00 |
+| NULL | NULL |        NULL |   NULL |  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
++------+------+-------------+--------+----+---------+-----+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1 CROSS JOIN CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1 CROSS JOIN CUSTOMERS;
++-----+---------------------+-------------+--------+----+---------+-----+------------+----------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT | ID | NAME    | AGE | ADDRESS    | SALARY   |
++-----+---------------------+-------------+--------+----+---------+-----+------------+----------+
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  1 | Ravi    |  24 | Hyderabad  | 10000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  2 | Abhi    |  22 | Hyderabad  | 10000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  3 | Ashok   |  22 | Chennai    |  7000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  3 | Ashok   |  22 | Chennai    |  7000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  3 | Ashok   |  22 | Chennai    |  7000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  3 | Ashok   |  22 | Chennai    |  7000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  4 | Karthik |  20 | Bangalore  |  4000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  4 | Karthik |  20 | Bangalore  |  4000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  4 | Karthik |  20 | Bangalore  |  4000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  4 | Karthik |  20 | Bangalore  |  4000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  5 | Seetha  |  20 | Kolkata    |  9000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  6 | Ramu    |  26 | DELHI      | 15000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  6 | Ramu    |  26 | DELHI      | 15000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  6 | Ramu    |  26 | DELHI      | 15000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  6 | Ramu    |  26 | DELHI      | 15000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |  7 | Ravi    |  23 | CHOUTUPPAL |  3000.00 |
++-----+---------------------+-------------+--------+----+---------+-----+------------+----------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1 FULL JOIN CUSTOMERS ON CUSTOMERS.OID=CUSTOMERS1.ID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS.OID' in 'on clause'
+mysql> SELECT * FROM CUSTOMERS1 FULL JOIN CUSTOMERS ON CUSTOMERS.ID=CUSTOMERS1.OID;
+ERROR 1054 (42S22): Unknown column 'CUSTOMERS1.OID' in 'on clause'
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE FROM CUSTOMERS c
+    -> FULL JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID' at line 2
+mysql> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE
+    -> FROM CUSTOMERS c
+    -> LEFT JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID
+    -> UNION ALL
+    -> SELECT c.ID, c.NAME, c1.AMOUNT, c1.DATE
+    -> FROM CUSTOMERS c
+    -> RIGHT JOIN CUSTOMERS1 c1 ON c.ID = c1.CUSTOMER_ID
+    -> WHERE c.ID IS NULL;
++------+---------+--------+---------------------+
+| ID   | NAME    | AMOUNT | DATE                |
++------+---------+--------+---------------------+
+|    1 | Ravi    |   NULL | NULL                |
+|    2 | Abhi    |   1560 | 2009-11-20 00:00:00 |
+|    3 | Ashok   |   3000 | 2009-10-08 00:00:00 |
+|    3 | Ashok   |   1500 | 2009-10-08 00:00:00 |
+|    4 | Karthik |   2060 | 2008-05-20 00:00:00 |
+|    5 | Seetha  |   NULL | NULL                |
+|    6 | Ramu    |   NULL | NULL                |
+|    7 | Ravi    |   NULL | NULL                |
++------+---------+--------+---------------------+
+8 rows in set (0.01 sec)
+
+mysql> SELECT  a.ID, b.NAME, a.SALARY
+    ->      FROM CUSTOMERS a, CUSTOMERS b
+    ->      FROM CUSTOMERS a, CUSTOMERS b \c
+mysql> SELECT a.ID, b.NAME, c.SALARY
+    -> FROM CUSTOMERS a, CUSTOMERS b
+    -> WHERE a.SALARY < b.SALARY;
+ERROR 1054 (42S22): Unknown column 'c.SALARY' in 'field list'
+mysql> SELECT a.ID, b.NAME, a.SALARY
+    -> FROM CUSTOMERS a, CUSTOMERS b
+    -> WHERE a.SALARY < b.SALARY;
++----+---------+----------+
+| ID | NAME    | SALARY   |
++----+---------+----------+
+|  7 | Ravi    |  3000.00 |
+|  5 | Ravi    |  9000.00 |
+|  4 | Ravi    |  4000.00 |
+|  3 | Ravi    |  7000.00 |
+|  7 | Abhi    |  3000.00 |
+|  5 | Abhi    |  9000.00 |
+|  4 | Abhi    |  4000.00 |
+|  3 | Abhi    |  7000.00 |
+|  7 | Ashok   |  3000.00 |
+|  4 | Ashok   |  4000.00 |
+|  7 | Karthik |  3000.00 |
+|  7 | Seetha  |  3000.00 |
+|  4 | Seetha  |  4000.00 |
+|  3 | Seetha  |  7000.00 |
+|  7 | Ramu    |  3000.00 |
+|  5 | Ramu    |  9000.00 |
+|  4 | Ramu    |  4000.00 |
+|  3 | Ramu    |  7000.00 |
+|  2 | Ramu    | 10000.00 |
+|  1 | Ramu    | 10000.00 |
++----+---------+----------+
+20 rows in set (0.00 sec)
+
+mysql>
