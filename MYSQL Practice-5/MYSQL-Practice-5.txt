@@ -1,0 +1,1014 @@
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| data1              |
+| information_schema |
+| mydata             |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testingdb          |
++--------------------+
+8 rows in set (0.01 sec)
+
+mysql> use data1;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| customers1      |
+| practice        |
+| practice1       |
++-----------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+--------+-----+------------+----------+
+| ID | NAME   | AGE | ADDRESS    | SALARY   |
++----+--------+-----+------------+----------+
+|  1 | Ravi   |  24 | Hyderabad  | 10000.00 |
+|  2 | Abhi   |  22 | Hyderabad  | 10000.00 |
+|  3 | Ashok  |  22 | Chennai    |  7000.00 |
+|  5 | Seetha |  20 | Kolkata    |  9000.00 |
+|  6 | Ramu   |  26 | DELHI      | 15000.00 |
+|  7 | Ravi   |  23 | CHOUTUPPAL |  3000.00 |
++----+--------+-----+------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS1;
++-----+---------------------+-------------+--------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE AGE=23;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+--------+-----+-----------+----------+
+| ID | NAME   | AGE | ADDRESS   | SALARY   |
++----+--------+-----+-----------+----------+
+|  1 | Ravi   |  24 | Hyderabad | 10000.00 |
+|  2 | Abhi   |  22 | Hyderabad | 10000.00 |
+|  3 | Ashok  |  22 | Chennai   |  7000.00 |
+|  5 | Seetha |  20 | Kolkata   |  9000.00 |
+|  6 | Ramu   |  26 | DELHI     | 15000.00 |
++----+--------+-----+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+--------+-----+-----------+----------+
+| ID | NAME   | AGE | ADDRESS   | SALARY   |
++----+--------+-----+-----------+----------+
+|  1 | Ravi   |  24 | Hyderabad | 10000.00 |
+|  2 | Abhi   |  22 | Hyderabad | 10000.00 |
+|  3 | Ashok  |  22 | Chennai   |  7000.00 |
+|  5 | Seetha |  20 | Kolkata   |  9000.00 |
+|  6 | Ramu   |  26 | DELHI     | 15000.00 |
++----+--------+-----+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE AGE=23;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+--------+-----+-----------+----------+
+| ID | NAME   | AGE | ADDRESS   | SALARY   |
++----+--------+-----+-----------+----------+
+|  1 | Ravi   |  24 | Hyderabad | 10000.00 |
+|  2 | Abhi   |  22 | Hyderabad | 10000.00 |
+|  3 | Ashok  |  22 | Chennai   |  7000.00 |
+|  5 | Seetha |  20 | Kolkata   |  9000.00 |
+|  6 | Ramu   |  26 | DELHI     | 15000.00 |
++----+--------+-----+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE AGE=20;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+-------+-----+-----------+----------+
+| ID | NAME  | AGE | ADDRESS   | SALARY   |
++----+-------+-----+-----------+----------+
+|  1 | Ravi  |  24 | Hyderabad | 10000.00 |
+|  2 | Abhi  |  22 | Hyderabad | 10000.00 |
+|  3 | Ashok |  22 | Chennai   |  7000.00 |
+|  6 | Ramu  |  26 | DELHI     | 15000.00 |
++----+-------+-----+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE AGE=20;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMERS;
++----+-------+-----+-----------+----------+
+| ID | NAME  | AGE | ADDRESS   | SALARY   |
++----+-------+-----+-----------+----------+
+|  1 | Ravi  |  24 | Hyderabad | 10000.00 |
+|  2 | Abhi  |  22 | Hyderabad | 10000.00 |
+|  3 | Ashok |  22 | Chennai   |  7000.00 |
+|  6 | Ramu  |  26 | DELHI     | 15000.00 |
++----+-------+-----+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SAVEPOINT SP1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE ID=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> ROLLBACK TO SP1;
+ERROR 1305 (42000): SAVEPOINT SP1 does not exist
+mysql> SAVEPOINT SP2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE ID=2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SAVEPOINT SP3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELETE FROM CUSTOMERS WHERE ID=3;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> ROLLBACK TO SP2;
+ERROR 1305 (42000): SAVEPOINT SP2 does not exist
+mysql> RELEASE SAVEPOINT SP1;
+ERROR 1305 (42000): SAVEPOINT SP1 does not exist
+mysql> SELECT * FROM CUSTOMERS;
++----+------+-----+---------+----------+
+| ID | NAME | AGE | ADDRESS | SALARY   |
++----+------+-----+---------+----------+
+|  6 | Ramu |  26 | DELHI   | 15000.00 |
++----+------+-----+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('1998-04-22', INTERVAL 31 DAY);
++-----------------------------------------+
+| DATE_ADD('1998-04-22', INTERVAL 31 DAY) |
++-----------------------------------------+
+| 1998-05-23                              |
++-----------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ADDDATE('1998-02-20', INTERVAL 31 DAY);
++----------------------------------------+
+| ADDDATE('1998-02-20', INTERVAL 31 DAY) |
++----------------------------------------+
+| 1998-03-23                             |
++----------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ADDDATE('1998-03-22', 31);
++---------------------------+
+| ADDDATE('1998-03-22', 31) |
++---------------------------+
+| 1998-04-22                |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDDATE('1998-05-25', 31);
++---------------------------+
+| ADDDATE('1998-05-25', 31) |
++---------------------------+
+| 1998-06-25                |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDDATE('1998-05-25', 31); -- Here, add '25' & '31' = 56. Now, the given month is 'MAY', and it consists 31days. Now, subract '31' from '56'. The answer is 25 i.e., next month 25.
++---------------------------+
+| ADDDATE('1998-05-25', 31) |
++---------------------------+
+| 1998-06-25                |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('1998-05-25', 31);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '31)' at line 1
+mysql> SELECT DATE_ADD('1998-05-25', INTERVAL 31 DAY);
++-----------------------------------------+
+| DATE_ADD('1998-05-25', INTERVAL 31 DAY) |
++-----------------------------------------+
+| 1998-06-25                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('1998-05-25', INTERVAL 31 DAY); -- Both DATE_ADD & ADDDATE gives same result.
++-----------------------------------------+
+| DATE_ADD('1998-05-25', INTERVAL 31 DAY) |
++-----------------------------------------+
+| 1998-06-25                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('1997-12-31 23:59:59.999999', '1 1:1:1.000002');
++---------------------------------------------------------+
+| ADDTIME('1997-12-31 23:59:59.999999', '1 1:1:1.000002') |
++---------------------------------------------------------+
+| 1998-01-02 01:01:01.000001                              |
++---------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ADDTIME('1997-12-31 23:59:59.999999', '1 1:1:1.000002'); --Whereas, 1= day, 1= hour, 1=min, 1=sec, 0.000002=fractions
++---------------------------------------------------------+
+| ADDTIME('1997-12-31 23:59:59.999999', '1 1:1:1.000002') |
++---------------------------------------------------------+
+| 1998-01-02 01:01:01.000001                              |
++---------------------------------------------------------+
+1 row in set (0.00 sec)
+
+    -> \c
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00', 'GMT','MET');
++------------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00', 'GMT','MET') |
++------------------------------------------------+
+| NULL                                           |
++------------------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT @@global.time_zone;
++--------------------+
+| @@global.time_zone |
++--------------------+
+| SYSTEM             |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT @@system_time_zone;
++---------------------+
+| @@system_time_zone  |
++---------------------+
+| India Standard Time |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM mysql.time_zone_name;
+Empty set (0.00 sec)
+
+mysql> mysql_tzinfo_to_sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql_tzinfo_to_sql' at line 1
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00', 'IST','GMT');
++------------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00', 'IST','GMT') |
++------------------------------------------------+
+| NULL                                           |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2025-04-14 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CURDATE() + 0;
++---------------+
+| CURDATE() + 0 |
++---------------+
+|      20250414 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 14:35:46  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURTIME() + 0;
++---------------+
+| CURTIME() + 0 |
++---------------+
+|        143555 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_TIME;
++--------------+
+| CURRENT_TIME |
++--------------+
+| 14:36:26     |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_TIME();
++----------------+
+| CURRENT_TIME() |
++----------------+
+| 14:36:31       |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE('2003-12-31 01:02:03');
++-----------------------------+
+| DATE('2003-12-31 01:02:03') |
++-----------------------------+
+| 2003-12-31                  |
++-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECTR DATEDIFF('1997-12-31 23:59:59', '1997-12-30');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECTR DATEDIFF('1997-12-31 23:59:59', '1997-12-30')' at line 1
+mysql> SELECT DATEDIFF('1997-12-31 23:59:59', '1997-12-30');
++-----------------------------------------------+
+| DATEDIFF('1997-12-31 23:59:59', '1997-12-30') |
++-----------------------------------------------+
+|                                             1 |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE ADD('1997-12-31 23:59:59'),
+    -> INTERVAL '1:1' MINUTE_SECOND);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD('1997-12-31 23:59:59'),
+INTERVAL '1:1' MINUTE_SECOND)' at line 1
+mysql> SELECT DATE ADD('1997-12-31 23:59:59',
+    -> INTERVAL '1:1' MINUTE_SECOND);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD('1997-12-31 23:59:59',
+INTERVAL '1:1' MINUTE_SECOND)' at line 1
+mysql> SELECT DATE_ADD('1997-12-31 23:59:59'),
+    -> INTERVAL '1:1' MINUTE_SECOND);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),
+INTERVAL '1:1' MINUTE_SECOND)' at line 1
+mysql> SELECT DATE_ADD('1997-12-31 23:59:59', INTERVAL '1:1' MINUTE_SECOND);
++---------------------------------------------------------------+
+| DATE_ADD('1997-12-31 23:59:59', INTERVAL '1:1' MINUTE_SECOND) |
++---------------------------------------------------------------+
+| 1998-01-01 00:01:00                                           |
++---------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DATE_ADD('1997-01-01', INTERVAL 1 HOUR);
++-----------------------------------------+
+| DATE_ADD('1997-01-01', INTERVAL 1 HOUR) |
++-----------------------------------------+
+| 1997-01-01 01:00:00                     |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SELECT DATE_FORMAT('1997-10-24 22:23:00', '%W %M %Y');
++------------------------------------------------+
+| DATE_FORMAT('1997-10-24 22:23:00', '%W %M %Y') |
++------------------------------------------------+
+| Friday October 1997                            |
++------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DATE_FORMAT('2025-10-24 22:23:00', '%W %M %Y');
++------------------------------------------------+
+| DATE_FORMAT('2025-10-24 22:23:00', '%W %M %Y') |
++------------------------------------------------+
+| Friday October 2025                            |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT('1997-10-04 22:23:00'
+    -> '%H %K %I %r %T %S %w'0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 2
+mysql> SELECT DATE_FORMAT('1997-10-04 22:23:00'
+    -> '%H %K %I %r %T %S %w');
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DATE_FORMAT'
+mysql> SELECT DATE_FORMAT('1997-10-04 22:23:00'
+    -> '%H %k %I %r %T %S %w');
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DATE_FORMAT'
+mysql> SELECT DATE_FORMAT('1997-10-04 22:23:00', '%H %k %I %r %T %S %w');
++------------------------------------------------------------+
+| DATE_FORMAT('1997-10-04 22:23:00', '%H %k %I %r %T %S %w') |
++------------------------------------------------------------+
+| 22 22 10 10:23:00 PM 22:23:00 00 6                         |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT('1997-10-04 22:23:00',
+    -> '%H %k %I %r %T %S %w');
++------------------------------------------------------------+
+| DATE_FORMAT('1997-10-04 22:23:00',
+'%H %k %I %r %T %S %w') |
++------------------------------------------------------------+
+| 22 22 10 10:23:00 PM 22:23:00 00 6                         |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('1998-02-03');
++-----------------------+
+| DAYNAME('1998-02-03') |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2025-04-14');
++-----------------------+
+| DAYNAME('2025-04-14') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2025-04-14');
++--------------------------+
+| DAYOFMONTH('2025-04-14') |
++--------------------------+
+|                       14 |
++--------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DAYOFWEEK('2025-04-14');
++-------------------------+
+| DAYOFWEEK('2025-04-14') |
++-------------------------+
+|                       2 |
++-------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DAYOFYEAR('2025-04-14');
++-------------------------+
+| DAYOFYEAR('2025-04-14') |
++-------------------------+
+|                     104 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(YEAR FROM '2024-02-23');
++---------------------------------+
+| EXTRACT(YEAR FROM '2024-02-23') |
++---------------------------------+
+|                            2024 |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(YEAR_MONTH FROM '2024-02-23');
++---------------------------------------+
+| EXTRACT(YEAR_MONTH FROM '2024-02-23') |
++---------------------------------------+
+|                                202402 |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(MONTH FROM '2024-02-23');
++----------------------------------+
+| EXTRACT(MONTH FROM '2024-02-23') |
++----------------------------------+
+|                                2 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(DAY FROM '2024-02-23');
++--------------------------------+
+| EXTRACT(DAY FROM '2024-02-23') |
++--------------------------------+
+|                             23 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(YEAR_MONTH_DAY FROM '2024-02-23');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'YEAR_MONTH_DAY FROM '2024-02-23')' at line 1
+mysql> SELECT FROM_DAYS(729669);
++-------------------+
+| FROM_DAYS(729669) |
++-------------------+
+| 1997-10-07        |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FROM_DAYS(729669);  -- Gives the output from the oth year and analyzes the date.
++-------------------+
+| FROM_DAYS(729669) |
++-------------------+
+| 1997-10-07        |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FROM_UNIXTIME(875996580);
++--------------------------+
+| FROM_UNIXTIME(875996580) |
++--------------------------+
+| 1997-10-05 01:53:00      |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT HOUR('12:30:55');
++------------------+
+| HOUR('12:30:55') |
++------------------+
+|               12 |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MINUTE('12:30:55');
++--------------------+
+| MINUTE('12:30:55') |
++--------------------+
+|                 30 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SECOND('12:30:55');
++--------------------+
+| SECOND('12:30:55') |
++--------------------+
+|                 55 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST DAY('2003-02-05');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('2003-02-05')' at line 1
+mysql> SELECT LAST_DAY('2003-02-05');
++------------------------+
+| LAST_DAY('2003-02-05') |
++------------------------+
+| 2003-02-28             |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT LAST_DAY('2024-02-05');
++------------------------+
+| LAST_DAY('2024-02-05') |
++------------------------+
+| 2024-02-29             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAKEDATE (2024,28), MAKEDATE(2024,32);
++--------------------+-------------------+
+| MAKEDATE (2024,28) | MAKEDATE(2024,32) |
++--------------------+-------------------+
+| 2024-01-28         | 2024-02-01        |
++--------------------+-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MAKETIME (12,15,30);
++---------------------+
+| MAKETIME (12,15,30) |
++---------------------+
+| 12:15:30            |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MICROSECOND('12:15:33.11223344');
++----------------------------------+
+| MICROSECOND('12:15:33.11223344') |
++----------------------------------+
+|                           112233 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MINUTE('12:20:22 10:30:55';)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> SELECT MINUTE('12:20:22 10:30:55');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+SELECT MINUTE('12:20:22 10:30:55')' at line 1
+mysql> SELECT MINUTE('12-03-22 10:30:55');
++-----------------------------+
+| MINUTE('12-03-22 10:30:55') |
++-----------------------------+
+|                          30 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SELECT MONTH('1998-02-03');
++---------------------+
+| MONTH('1998-02-03') |
++---------------------+
+|                   2 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MONTHNAME('1998-02-03');
++-------------------------+
+| MONTHNAME('1998-02-03') |
++-------------------------+
+| February                |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2025-04-14 20:28:26 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT PERIOD ADD (9801,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD (9801,2)' at line 1
+mysql> SELECT PERIOD_ADD (9801,2);
++---------------------+
+| PERIOD_ADD (9801,2) |
++---------------------+
+|              199803 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT PERIOD_ADD (2401,2); -- We have given january 2024 and period as '2'. It adds '2' months to january and becomes 'march'
++---------------------+
+| PERIOD_ADD (2401,2) |
++---------------------+
+|              202403 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT PERIOD_DIFF (2401, 202501);
++----------------------------+
+| PERIOD_DIFF (2401, 202501) |
++----------------------------+
+|                        -12 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT QUARTER ('98-04-01');L
++----------------------+
+| QUARTER ('98-04-01') |
++----------------------+
+|                    2 |
++----------------------+
+1 row in set (0.00 sec)
+
+    -> \c
+mysql> SELECT SECOND('10:05:33');
++--------------------+
+| SECOND('10:05:33') |
++--------------------+
+|                 33 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SEC TO TIME(2378);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TO TIME(2378)' at line 1
+mysql> SELECT SEC_TO_TIME(2378);
++-------------------+
+| SEC_TO_TIME(2378) |
++-------------------+
+| 00:39:38          |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT STR_TO_DATE('04/31/2004', '%m/%d/%y');
++---------------------------------------+
+| STR_TO_DATE('04/31/2004', '%m/%d/%y') |
++---------------------------------------+
+| NULL                                  |
++---------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT STR_TO_DATE('05/01/2004', '%m/%d/%y');
++---------------------------------------+
+| STR_TO_DATE('05/01/2004', '%m/%d/%y') |
++---------------------------------------+
+| 2020-05-01                            |
++---------------------------------------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> SELECT DATE_SUB('1998-01-02', INTERVAL 31 DAY);
++-----------------------------------------+
+| DATE_SUB('1998-01-02', INTERVAL 31 DAY) |
++-----------------------------------------+
+| 1997-12-02                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUB_DATE('1998-01-02', INTERVAL 31 DAY);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> SELECT SUBDATE('1998-01-02', INTERVAL 31 DAY);
++----------------------------------------+
+| SUBDATE('1998-01-02', INTERVAL 31 DAY) |
++----------------------------------------+
+| 1997-12-02                             |
++----------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT SUBTIME('1997-12-31 23:59:59.999999',
+    -> '1 1:1:1.000002');
++----------------------------------------------------------+
+| SUBTIME('1997-12-31 23:59:59.999999',
+'1 1:1:1.000002') |
++----------------------------------------------------------+
+| 1997-12-30 22:58:58.999997                               |
++----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2025-04-14 20:42:55 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME('2003-12-31 01:02:03');
++-----------------------------+
+| TIME('2003-12-31 01:02:03') |
++-----------------------------+
+| 01:02:03                    |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMEDIFF('1997-12-31 23:59:59.000001',
+    -> '1997-12-30 01:01:01.000002');
++-----------------------------------------------------------------------+
+| TIMEDIFF('1997-12-31 23:59:59.000001',
+'1997-12-30 01:01:01.000002') |
++-----------------------------------------------------------------------+
+| 46:58:57.999999                                                       |
++-----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMESTAMP('2003-12-31');
++-------------------------+
+| TIMESTAMP('2003-12-31') |
++-------------------------+
+| 2003-12-31 00:00:00     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMESTAMPADD(MINUTE,1,'2003-01-02');
++-------------------------------------+
+| TIMESTAMPADD(MINUTE,1,'2003-01-02') |
++-------------------------------------+
+| 2003-01-02 00:01:00                 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMESTAMPDIFF(MONTH,'2003-02-01','2003-05-01');
++------------------------------------------------+
+| TIMESTAMPDIFF(MONTH,'2003-02-01','2003-05-01') |
++------------------------------------------------+
+|                                              3 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT('100:00:00', '%H %k %h %I %l');
++--------------------------------------------+
+| TIME_FORMAT('100:00:00', '%H %k %h %I %l') |
++--------------------------------------------+
+| 100 100 04 04 4                            |
++--------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_TO_SEC('22:23:00');
++-------------------------+
+| TIME_TO_SEC('22:23:00') |
++-------------------------+
+|                   80580 |
++-------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT TO_DAYS(950501);
++-----------------+
+| TO_DAYS(950501) |
++-----------------+
+|          728779 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS(240101);
++-----------------+
+| TO_DAYS(240101) |
++-----------------+
+|          739251 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT UNIX_TIMESTAMP();
++------------------+
+| UNIX_TIMESTAMP() |
++------------------+
+|       1744645186 |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT UTC_DATE(), UTC_DATE() + 0;
++------------+----------------+
+| UTC_DATE() | UTC_DATE() + 0 |
++------------+----------------+
+| 2025-04-14 |       20250414 |
++------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UTC_TIME(), UTC_TIME() + 0;
++------------+----------------+
+| UTC_TIME() | UTC_TIME() + 0 |
++------------+----------------+
+| 15:41:26   |         154126 |
++------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UTC_TIMESTAMP(), UTC_TIMESTAMP() + 0;
++---------------------+---------------------+
+| UTC_TIMESTAMP()     | UTC_TIMESTAMP() + 0 |
++---------------------+---------------------+
+| 2025-04-14 15:41:45 |      20250414154145 |
++---------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT WEEK('2024-04-20');
++--------------------+
+| WEEK('2024-04-20') |
++--------------------+
+|                 15 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT WEEKDAY('2024-04-03 22:23:00');
++--------------------------------+
+| WEEKDAY('2024-04-03 22:23:00') |
++--------------------------------+
+|                              2 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT WEEKOFYEAR('2024-04-20');
++--------------------------+
+| WEEKOFYEAR('2024-04-20') |
++--------------------------+
+|                       16 |
++--------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT YEAR('24-04-03');
++------------------+
+| YEAR('24-04-03') |
++------------------+
+|             2024 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('2024-04-01');
++------------------------+
+| YEARWEEK('2024-04-01') |
++------------------------+
+|                 202413 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE SALESSUMMARY (
+    -> product_name VARCHAR(50) NOT NULL,
+    -> total_sales DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    -> avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    -> total_units_sold INT UNSIGNED NOT NULL DEFAULT 0);
+ERROR 1046 (3D000): No database selected
+mysql> USE DATA1;
+Database changed
+mysql> CREATE TEMPORARY TABLE SALESSUMMARY (
+    -> product_name VARCHAR(50) NOT NULL,
+    -> total_sales DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    -> avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    -> total_units_sold INT UNSIGNED NOT NULL DEFAULT 0);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> DESC SALESSUMMARY;
++------------------+---------------+------+-----+---------+-------+
+| Field            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| product_name     | varchar(50)   | NO   |     | NULL    | NULL  |
+| total_sales      | decimal(12,2) | NO   |     | 0.00    | NULL  |
+| avg_unit_price   | decimal(7,2)  | NO   |     | 0.00    | NULL  |
+| total_units_sold | int unsigned  | NO   |     | 0       | NULL  |
++------------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO SALESUMMARY
+    -> (product_name, total_sales, avg_unit_price, total_units_sold)
+    -> VALUES,
+    ->  ('cucumber', 100.25, 90, 2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+ ('cucumber', 100.25, 90, 2)' at line 3
+mysql> INSERT INTO SALESUMMARY
+    -> (product_name, total_sales, avg_unit_price, total_units_sold),
+    -> VALUES,
+    ->  ('cucumber', 100.25, 90, 2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+VALUES,
+ ('cucumber', 100.25, 90, 2)' at line 2
+mysql> INSERT INTO SALESUMMARY (product_name, total_sales, avg_unit_price, total_units_sold)
+    -> VALUES ('cucumber', 100.25, 90, 2);
+ERROR 1146 (42S02): Table 'data1.salesummary' doesn't exist
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| customers1      |
+| practice        |
+| practice1       |
++-----------------+
+4 rows in set (0.04 sec)
+
+mysql> USE DATA1;
+Database changed
+mysql> CREATE TEMPORARY TABLE SALESSUMMARY (
+    ->     -> product_name VARCHAR(50) NOT NULL,
+    ->     -> total_sales DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    ->     -> avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    ->     -> avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    -> \c
+mysql> CREATE TEMPORARY TABLE SALESSUMMARY (
+    ->     product_name VARCHAR(50) NOT NULL,
+    ->     total_sales DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    ->     avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
+    ->     total_units_sold INT UNSIGNED NOT NULL DEFAULT 0
+    -> );
+ERROR 1050 (42S01): Table 'salessummary' already exists
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| customers1      |
+| practice        |
+| practice1       |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO SALESUMMARY (product_name, total_sales, avg_unit_price, total_units_sold)
+    -> VALUES ('cucumber', 100.25, 90, 2);
+ERROR 1146 (42S02): Table 'data1.salesummary' doesn't exist
+mysql> INSERT INTO salessummary (product_name, total_sales, avg_unit_price, total_units_sold)
+    -> VALUES ('cucumber', 100.25, 90, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM salessummary;
++--------------+-------------+----------------+------------------+
+| product_name | total_sales | avg_unit_price | total_units_sold |
++--------------+-------------+----------------+------------------+
+| cucumber     |      100.25 |          90.00 |                2 |
++--------------+-------------+----------------+------------------+
+1 row in set (0.00 sec)
