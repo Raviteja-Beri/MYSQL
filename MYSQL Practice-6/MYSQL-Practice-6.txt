@@ -1,0 +1,463 @@
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| data1              |
+| information_schema |
+| mydata             |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testingdb          |
++--------------------+
+8 rows in set (0.15 sec)
+
+mysql> USE DATA1;
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_data1 |
++-----------------+
+| customers       |
+| customers1      |
+| practice        |
+| practice1       |
++-----------------+
+4 rows in set (0.02 sec)
+
+mysql> DELETE DATA1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT CONCAT ('FIRST', 'SECOND');
++----------------------------+
+| CONCAT ('FIRST', 'SECOND') |
++----------------------------+
+| FIRSTSECOND                |
++----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ABS(2);
++--------+
+| ABS(2) |
++--------+
+|      2 |
++--------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ABS(-2);
++---------+
+| ABS(-2) |
++---------+
+|       2 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ACOS(1);
++---------+
+| ACOS(1) |
++---------+
+|       0 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ASIN(1);
++--------------------+
+| ASIN(1)            |
++--------------------+
+| 1.5707963267948966 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ATAN(1);
++--------------------+
+| ATAN(1)            |
++--------------------+
+| 0.7853981633974483 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ATAN(3,6);
++--------------------+
+| ATAN(3,6)          |
++--------------------+
+| 0.4636476090008061 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CEILING(3.46);
++---------------+
+| CEILING(3.46) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CEIL(-6.43);
++-------------+
+| CEIL(-6.43) |
++-------------+
+|          -6 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONV(5,16,2);
++--------------+
+| CONV(5,16,2) |
++--------------+
+| 101          |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COS(90);
++---------------------+
+| COS(90)             |
++---------------------+
+| -0.4480736161291701 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COT(1);
++--------------------+
+| COT(1)             |
++--------------------+
+| 0.6420926159343306 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DEGREES (PI());
++----------------+
+| DEGREES (PI()) |
++----------------+
+|            180 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT EXP(3);
++--------------------+
+| EXP(3)             |
++--------------------+
+| 20.085536923187668 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FLOOR(7.55);
++-------------+
+| FLOOR(7.55) |
++-------------+
+|           7 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT FORMAT (423423423.65465433,2);
++-------------------------------+
+| FORMAT (423423423.65465433,2) |
++-------------------------------+
+| 423,423,423.65                |
++-------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECVT GREATEST(3,5,1,4,55,77,99,100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECVT GREATEST(3,5,1,4,55,77,99,100)' at line 1
+mysql> SELECT GREATEST(3,5,1,4,55,77,99,100);
++--------------------------------+
+| GREATEST(3,5,1,4,55,77,99,100) |
++--------------------------------+
+|                            100 |
++--------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT SMALLEST(3,5,1,4,55,77,99,100);
+ERROR 1305 (42000): FUNCTION data1.SMALLEST does not exist
+mysql> SELECT INTERVAL(1,2,3,4,5,6,7,8,9);
++-----------------------------+
+| INTERVAL(1,2,3,4,5,6,7,8,9) |
++-----------------------------+
+|                           0 |
++-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT INTERVAL(1,2,3,4,5,6,7,8,9,2,11,2);
++------------------------------------+
+| INTERVAL(1,2,3,4,5,6,7,8,9,2,11,2) |
++------------------------------------+
+|                                  0 |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INTERVAL(6,1,2,3,4,5,6,7,8,9,10);
++----------------------------------+
+| INTERVAL(6,1,2,3,4,5,6,7,8,9,10) |
++----------------------------------+
+|                                6 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LEAST(3,5,7,9,1,2);
++--------------------+
+| LEAST(3,5,7,9,1,2) |
++--------------------+
+|                  1 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT LOG(45);
++--------------------+
+| LOG(45)            |
++--------------------+
+| 3.8066624897703196 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOG(2,45434);
++--------------------+
+| LOG(2,45434)       |
++--------------------+
+| 15.471484705109788 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOG10(100);
++------------+
+| LOG10(100) |
++------------+
+|          2 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOG10(400);
++--------------------+
+| LOG10(400)         |
++--------------------+
+| 2.6020599913279625 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MOD(29,3);
++-----------+
+| MOD(29,3) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> SELECT OCT(12;)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> SELECT OCT(12);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+SELECT OCT(12)' at line 1
+mysql> SELECT OCT(12);
++---------+
+| OCT(12) |
++---------+
+| 14      |
++---------+
+1 row in set (0.01 sec)
+
+mysql> SELECT PI();
++----------+
+| PI()     |
++----------+
+| 3.141593 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT POWER(3,3);
++------------+
+| POWER(3,3) |
++------------+
+|         27 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RADIANS(90);
++--------------------+
+| RADIANS(90)        |
++--------------------+
+| 1.5707963267948966 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ROUND(5.6789);
++---------------+
+| ROUND(5.6789) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ROUND(5.6789,2);
++-----------------+
+| ROUND(5.6789,2) |
++-----------------+
+|            5.68 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(5.6789,1);
++-----------------+
+| ROUND(5.6789,1) |
++-----------------+
+|             5.7 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SIGN(-4.65);
++-------------+
+| SIGN(-4.65) |
++-------------+
+|          -1 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SIGN(0);
++---------+
+| SIGN(0) |
++---------+
+|       0 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SIGN(4.65);
++------------+
+| SIGN(4.65) |
++------------+
+|          1 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SIN(90);
++--------------------+
+| SIN(90)            |
++--------------------+
+| 0.8939966636005579 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SQRT(49);
++----------+
+| SQRT(49) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TAN(45);
++--------------------+
+| TAN(45)            |
++--------------------+
+| 1.6197751905438615 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TRUNCATE(7.536432,2);
++----------------------+
+| TRUNCATE(7.536432,2) |
++----------------------+
+|                 7.53 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ASCII('2';)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> \c
+mysql> SELECT ASCII('2');
++------------+
+| ASCII('2') |
++------------+
+|         50 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ASCII('dx');
++-------------+
+| ASCII('dx') |
++-------------+
+|         100 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BIN(12);
++---------+
+| BIN(12) |
++---------+
+| 1100    |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BIT_LENGTH('RAVITEJA');
++------------------------+
+| BIT_LENGTH('RAVITEJA') |
++------------------------+
+|                     64 |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CHAR_LENGTH("RAVITEJA";)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> \c
+mysql> SELECT CHAR_LENGTH("RAVITEJA");
++-------------------------+
+| CHAR_LENGTH("RAVITEJA") |
++-------------------------+
+|                       8 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT('MY', 'S', 'QL');
++-------------------------+
+| CONCAT('MY', 'S', 'QL') |
++-------------------------+
+| MYSQL                   |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT WS(',','FIRST NAME','LAST NAME');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(',','FIRST NAME','LAST NAME')' at line 1
+mysql> SELECT CONCAT_WS(',','FIRST NAME','LAST NAME');
++-----------------------------------------+
+| CONCAT_WS(',','FIRST NAME','LAST NAME') |
++-----------------------------------------+
+| FIRST NAME,LAST NAME                    |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONV('a',16,2);
++----------------+
+| CONV('a',16,2) |
++----------------+
+| 1010           |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ELT(1, 'ej', 'teja', 'ravi', 'foo');
++-------------------------------------+
+| ELT(1, 'ej', 'teja', 'ravi', 'foo') |
++-------------------------------------+
+| ej                                  |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ELT(3, 'ej', 'teja', 'ravi', 'foo');
++-------------------------------------+
+| ELT(3, 'ej', 'teja', 'ravi', 'foo') |
++-------------------------------------+
+| ravi                                |
++-------------------------------------+
+1 row in set (0.00 sec)
